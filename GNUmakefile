@@ -55,18 +55,20 @@ GIT_REPO_NAME							:= $(PROJECT_NAME)
 export GIT_REPO_NAME
 GIT_REPO_PATH							:= $(HOME)/$(GIT_REPO_NAME)
 export GIT_REPO_PATH
+GIT_SUBMODULE							:= $(shell git submodule)
+export GIT_SUBMODULE
 
 # default output
 ##make	:	command			description
 ##	:
 ##	:	help
 ##	:	report
+##	:	submodule
 
 
 -: help
 help:
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^//'
-	@sed -n 's/^###//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/ /'
 
 
 
@@ -92,9 +94,10 @@ report:
 	@echo ' GIT_REPO_ORIGIN=${GIT_REPO_ORIGIN}	'
 	@echo ' GIT_REPO_NAME=${GIT_REPO_NAME}	'
 	@echo ' GIT_REPO_PATH=${GIT_REPO_PATH}	'
+#	@echo ' GIT_SUBMODULE=${GIT_SUBMODULE}	'
 
-.PHONY: submodule submodules
-submodule: submodules
+.PHONY: gitmodules submodules
+gitmodules: submodules
 submodules:
 	git submodule update --init --recursive
 	git submodule foreach 'git fetch origin; git checkout $$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx'
