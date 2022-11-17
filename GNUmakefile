@@ -44,6 +44,9 @@ export GIT_REPO_NAME
 GIT_REPO_PATH							:= $(HOME)/$(GIT_REPO_NAME)
 export GIT_REPO_PATH
 
+#CHECK DEPENDS
+MESON									:= $(shell which meson)
+export MESON
 # default output
 ##make		command		description
 ##	:
@@ -111,6 +114,11 @@ report:
 	@echo ' GIT_REPO_ORIGIN=${GIT_REPO_ORIGIN}	'
 	@echo ' GIT_REPO_NAME=${GIT_REPO_NAME}	'
 	@echo ' GIT_REPO_PATH=${GIT_REPO_PATH}	'
+	@echo ''
+	@echo ' XCODE DEPENDS'
+	@echo ''
+	@echo ' MESON=${MESON}	'
+	@echo ''
 .PHONY: submodules
 submodules:
 	git submodule update --init --recursive
