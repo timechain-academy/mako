@@ -71,5 +71,6 @@ wasm32-wasi/
 wasm64-wasi/
 x64/
 x86_64-w64-mingw32/
+xcode/mako.xcworkspace/xcuserdata/git.xcuserdatad/UserInterfaceState.xcuserstate
 zig-cache/
 zig-out/
