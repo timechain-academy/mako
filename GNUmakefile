@@ -62,7 +62,9 @@ export GIT_REPO_PATH
 
 help:
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^//'
+.PHONY:all
 all: autogen configure mako
+.PHONY:autogen
 autogen:
 	./autogen.sh
 configure:
@@ -75,7 +77,9 @@ mako:
 
 .PHONY: clean
 clean:
+	@rm ./configure
 	@make -f Makefile clean-am
+	@rm Makefile
 report:
 	@echo ''
 	@echo ' TIME=${TIME}	'
