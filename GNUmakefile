@@ -45,18 +45,29 @@ GIT_REPO_PATH							:= $(HOME)/$(GIT_REPO_NAME)
 export GIT_REPO_PATH
 
 # default output
-##make	:	command			description
-##	:
-##	:	help
-##	:	report
-##	:	submodules:	git submodule update --init --recursive
+##make		command		description
+##	
+##		help
+##		report
+##		submodules	git submodule update --init --recursive
 
+.PHONY:-
+-:help
+	$(MAKE) -f Makefile $@
+#%:
+#	@true
+	
 
--: help
 help:
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^//'
+	
 
+autogen:
+	./autogen.sh 
+conf:
+	./configure
 
+-include Makefile
 
 
 
@@ -78,12 +89,10 @@ report:
 	@echo ' GIT_REPO_ORIGIN=${GIT_REPO_ORIGIN}	'
 	@echo ' GIT_REPO_NAME=${GIT_REPO_NAME}	'
 	@echo ' GIT_REPO_PATH=${GIT_REPO_PATH}	'
-
 .PHONY: submodules
 submodules:
 	git submodule update --init --recursive
 	git submodule foreach 'git fetch origin; git checkout $$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx'
 
-#-include Makefile
 # vim: set noexpandtab:
 # vim: set setfiletype make
