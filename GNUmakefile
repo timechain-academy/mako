@@ -2,11 +2,6 @@
 SHELL									:= /bin/bash
 
 PWD										?= pwd_unknown
-#space:=
-#space+=
-
-# CURRENT_PATH := $(subst $(lastword $(notdir $(MAKEFILE_LIST))),,$(subst $(space),\$(space),$(shell realpath '$(strip $(MAKEFILE_LIST))')))
-# export CURRENT_PATH
 
 THIS_DIR=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 export THIS_DIR
@@ -21,13 +16,6 @@ else
 PROJECT_NAME							:= $(project)
 endif
 export PROJECT_NAME
-
-ifeq ($(NODE_VERSION),)
-NODE_VERSION									:= $(shell node --version)
-else
-NODE_VERSION									:= $(NODE_VERSION)
-endif
-export NODE_VERSION
 
 ifeq ($(force),true)
 FORCE									:= --force
@@ -55,15 +43,13 @@ GIT_REPO_NAME							:= $(PROJECT_NAME)
 export GIT_REPO_NAME
 GIT_REPO_PATH							:= $(HOME)/$(GIT_REPO_NAME)
 export GIT_REPO_PATH
-GIT_SUBMODULE							:= $(shell git submodule)
-export GIT_SUBMODULE
 
 # default output
 ##make	:	command			description
 ##	:
 ##	:	help
 ##	:	report
-##	:	submodule
+##	:	submodules:	git submodule update --init --recursive
 
 
 -: help
@@ -80,10 +66,8 @@ help:
 report:
 	@echo ''
 	@echo ' TIME=${TIME}	'
-	@echo ' CURRENT_PATH=${CURRENT_PATH}	'
 	@echo ' THIS_DIR=${THIS_DIR}	'
 	@echo ' PROJECT_NAME=${PROJECT_NAME}	'
-	@echo ' NODE_VERSION=${NODE_VERSION}	'
 	@echo ' GIT_USER_NAME=${GIT_USER_NAME}	'
 	@echo ' GIT_USER_EMAIL=${GIT_USER_EMAIL}	'
 	@echo ' GIT_SERVER=${GIT_SERVER}	'
@@ -94,10 +78,8 @@ report:
 	@echo ' GIT_REPO_ORIGIN=${GIT_REPO_ORIGIN}	'
 	@echo ' GIT_REPO_NAME=${GIT_REPO_NAME}	'
 	@echo ' GIT_REPO_PATH=${GIT_REPO_PATH}	'
-#	@echo ' GIT_SUBMODULE=${GIT_SUBMODULE}	'
 
-.PHONY: gitmodules submodules
-gitmodules: submodules
+.PHONY: submodules
 submodules:
 	git submodule update --init --recursive
 	git submodule foreach 'git fetch origin; git checkout $$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx'
