@@ -54,6 +54,9 @@ export GIT_REPO_PATH
 ##	:
 ##		mako
 ##	:
+##		dist
+##		distdir-am
+##	:
 ##		clean
 ##		clean-all
 ##	:
@@ -68,12 +71,20 @@ help:
 all: autogen configure mako
 autogen:
 	./autogen.sh
+.PHONY: configure
 configure:
 	./configure
 
 .PHONY: mako makod
-mako:
+mako:makod
+makod:
 	$(MAKE) -f Makefile all-am
+
+.PHONY: dist distdir-am
+dist: distdir-am
+distdir-am:
+	$(MAKE) -f Makefile $@
+	@git status -s
 
 
 .PHONY: clean
@@ -81,9 +92,10 @@ clean:
 	@make -f Makefile clean-am
 .PHONY: clean-all
 clean-all:
-	@rm ./configure
 	@make -f Makefile clean-am
+	@rm ./configure
 	@rm Makefile
+	@rm -rf mako-*
 report:
 	@echo ''
 	@echo ' TIME=${TIME}	'
