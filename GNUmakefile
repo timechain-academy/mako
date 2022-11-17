@@ -55,6 +55,8 @@ export GIT_REPO_PATH
 ##		mako
 ##	:
 ##		clean
+##		clean-all
+##	:
 ##		report
 ##	:
 ##	:
@@ -64,19 +66,21 @@ help:
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^//'
 .PHONY:all
 all: autogen configure mako
-.PHONY:autogen
 autogen:
 	./autogen.sh
 configure:
 	./configure
 
-.PHONY: mako
+.PHONY: mako makod
 mako:
 	$(MAKE) -f Makefile all-am
 
 
 .PHONY: clean
 clean:
+	@make -f Makefile clean-am
+.PHONY: clean-all
+clean-all:
 	@rm ./configure
 	@make -f Makefile clean-am
 	@rm Makefile
