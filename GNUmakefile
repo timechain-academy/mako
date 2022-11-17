@@ -46,28 +46,37 @@ export GIT_REPO_PATH
 
 # default output
 ##make		command		description
-##	
+##	:
 ##		help
+##	:
+##		autogen
+##		configure
+##		clean
+##	:
+##		mako
+##	:
 ##		report
+##	:
 ##		submodules	git submodule update --init --recursive
-
-.PHONY:-
--:help
-	$(MAKE) -f Makefile $@
-#%:
-#	@true
-	
 
 help:
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^//'
 	
+.PHONY: mako
+mako:
+	$(MAKE) -f Makefile all-am
+#-include Makefile
+.PHONY: clean
+clean:
+	@make -f Makefile clean-am
+
 
 autogen:
-	./autogen.sh 
-conf:
+	./autogen.sh
+.PHONY: configure
+configure:
 	./configure
 
--include Makefile
 
 
 
@@ -94,5 +103,6 @@ submodules:
 	git submodule update --init --recursive
 	git submodule foreach 'git fetch origin; git checkout $$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx'
 
+#-include Makefile
 # vim: set noexpandtab:
 # vim: set setfiletype make
