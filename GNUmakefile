@@ -47,42 +47,35 @@ export GIT_REPO_PATH
 # default output
 ##make		command		description
 ##	:
-##		help
+##		all		autogen configure mako
 ##	:
 ##		autogen
 ##		configure
-##		clean
 ##	:
 ##		mako
 ##	:
+##		clean
 ##		report
+##	:
 ##	:
 ##		submodules	git submodule update --init --recursive
 
 help:
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^//'
-	
-.PHONY: mako
-mako:
-	$(MAKE) -f Makefile all-am
-#-include Makefile
-.PHONY: clean
-clean:
-	@make -f Makefile clean-am
-
-
+all: autogen configure mako
 autogen:
 	./autogen.sh
-.PHONY: configure
 configure:
 	./configure
 
+.PHONY: mako
+mako:
+	$(MAKE) -f Makefile all-am
 
 
-
-
-
-
+.PHONY: clean
+clean:
+	@make -f Makefile clean-am
 report:
 	@echo ''
 	@echo ' TIME=${TIME}	'
