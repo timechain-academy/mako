@@ -1,14 +1,23 @@
-wget https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz
-wget https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz.sha256
-wget https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz.asc
+wget -b \
+https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz \
+>> initialize.log
+
+wget -b \
+https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz.sha256 \
+>> initialize.log
+
+wget -b \
+https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz.asc \
+>> initialize.log
+
 
 SHA256_PACKAGE=$(shasum -a 256 alpine-minirootfs-3.16.3-x86.tar.gz)
-echo "SHASUM_PACKAGE"
-echo $SHA256_PACKAGE
+echo "SHASUM_PACKAGE" >> initialize.log
+echo $SHA256_PACKAGE >> initialize.log
 SHASUM_VERIFY=$(cat alpine-minirootfs-3.16.3-x86.tar.gz.sha256)
-echo "SHASUM_VERIFY"
-echo $SHASUM_VERIFY
-wget https://alpinelinux.org/keys/ncopa.asc
-gpg --import ncopa.asc
-gpg --verify alpine-minirootfs-3.16.3-x86.tar.gz.asc
+echo "SHASUM_VERIFY" >> initialize.log
+echo $SHASUM_VERIFY >> initialize.log
+wget -b https://alpinelinux.org/keys/ncopa.asc >> initialize.log
+gpg --import --quiet ncopa.asc >> initialize.log
+gpg --verify --quiet alpine-minirootfs-3.16.3-x86.tar.gz.asc >> initialize.log
 
