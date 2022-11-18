@@ -87,6 +87,12 @@ distdir-am: package
 	$(MAKE) -f Makefile $@
 	@git status -s
 
+.PHONY: submodules
+submodules:
+	git submodule update --init --recursive
+	git submodule foreach 'git fetch origin; git checkout $$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx'
+.PHONY: xcode
+xcode: submodules initialize
 .PHONY: initialize
 initialize:
 	@pushd xcode && ./initialize && popd
@@ -120,10 +126,6 @@ report:
 	@echo ''
 	@echo ' MESON=${MESON}	'
 	@echo ''
-.PHONY: submodules
-submodules:
-	git submodule update --init --recursive
-	git submodule foreach 'git fetch origin; git checkout $$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx'
 
 #-include Makefile
 # vim: set noexpandtab:
