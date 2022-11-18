@@ -26,7 +26,7 @@ echo "iSH initialization"
 if [ hash brew 2>/dev/null ]; then
 echo "install brew"
 else
-brew install \
+brew install -q \
 autoconf \
 automake \
 libtool \
@@ -40,10 +40,10 @@ libarchive \
 meson \
 ninja \
 cmake \
-libarchive
+libarchive >> initialize.log
 
-brew link --overwrite libarchive
-brew link --overwrite meson
+brew link --overwrite libarchive >> initialize.log
+brew link --overwrite meson      >> initialize.log
 
 fi
 
