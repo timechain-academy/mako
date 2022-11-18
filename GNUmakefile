@@ -50,23 +50,21 @@ export MESON
 # default output
 ##make		command		description
 ##	:
-##		all		autogen configure mako
+##	all			autogen configure mako
+##		autogen		./autogen.sh
+##		configure	./configure
+##		mako		all-am -f Makefile
 ##	:
-##		autogen
-##		configure
+##	dist			distdir-am -f Makefile
 ##	:
-##		mako
-##	:
-##		dist
-##		distdir-am
-##	:
-##		clean
+##	clean
 ##		clean-all
 ##	:
 ##		report
 ##	:
-##	:
+##	xcode			submodules initialize
 ##		submodules	git submodule update --init --recursive
+##		initialize	pushd xcode && ./initialize
 
 help:
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^//'
@@ -85,10 +83,13 @@ makod:
 
 .PHONY: dist distdir-am
 dist: distdir-am
-distdir-am:
+distdir-am: package
 	$(MAKE) -f Makefile $@
 	@git status -s
 
+.PHONY: initialize
+initialize:
+	@pushd xcode && ./initialize && popd
 
 .PHONY: clean
 clean:
