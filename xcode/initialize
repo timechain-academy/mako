@@ -1,0 +1,14 @@
+wget https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz
+wget https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz.sha256
+wget https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz.asc
+
+SHA256_PACKAGE=$(shasum -a 256 alpine-minirootfs-3.16.3-x86.tar.gz)
+echo "SHASUM_PACKAGE"
+echo $SHA256_PACKAGE
+SHASUM_VERIFY=$(cat alpine-minirootfs-3.16.3-x86.tar.gz.sha256)
+echo "SHASUM_VERIFY"
+echo $SHASUM_VERIFY
+wget https://alpinelinux.org/keys/ncopa.asc
+gpg --import ncopa.asc
+gpg --verify alpine-minirootfs-3.16.3-x86.tar.gz.asc
+
