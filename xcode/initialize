@@ -41,7 +41,9 @@ ninja \
 cmake \
 libarchive >> initialize.log
 
+if [ ! hash cmake 2>/dev/null ]; then
 brew install homebrew/cask/cmake
+fi
 
 brew link -q --overwrite libarchive >> initialize.log
 brew link -q --overwrite meson      >> initialize.log
