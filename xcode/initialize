@@ -42,9 +42,9 @@ ninja \
 cmake \
 libarchive >> initialize.log
 
-brew link --overwrite libarchive >> initialize.log
-brew link --overwrite meson      >> initialize.log
+brew link -q --overwrite libarchive >> initialize.log
+brew link -q --overwrite meson      >> initialize.log
 
 fi
 
-pushd ish && meson build && mkdir -p build && pushd build && ninja && popd popd
+pushd ish && meson build 2>/dev/null && mkdir -p build && pushd build && ninja  2>/dev/null && popd popd
