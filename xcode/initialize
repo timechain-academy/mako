@@ -35,12 +35,13 @@ m4 \
 sqlite3 \
 llvm \
 pkg-config \
-cmake \
 libarchive \
 meson \
 ninja \
 cmake \
 libarchive >> initialize.log
+
+brew install homebrew/cask/cmake
 
 brew link -q --overwrite libarchive >> initialize.log
 brew link -q --overwrite meson      >> initialize.log
