@@ -5,3 +5,6 @@
 [submodule "xcode/xcode-cross"]
 	path = xcode/xcode-cross
 	url = git@github.com:timechain-academy/xcode-cross.git
+[submodule "deps/lcdb"]
+	path = deps/lcdb
+	url = git@github.com:timechain-academy/lcdb.git
