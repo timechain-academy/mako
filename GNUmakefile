@@ -85,6 +85,7 @@ makod:
 dist: distdir-am
 distdir-am:
 	$(MAKE) -f Makefile $@
+	@pushd mako-0.0.0/ && ./autogen.sh && ./configure && make && popd
 	@git status -s
 
 .PHONY: submodules
