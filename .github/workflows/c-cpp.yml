@@ -13,15 +13,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: autogen.sh
-      run: ./autogen.sh
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make dist-gzip
-      run: make dist-gzip
-    - name: make distcheck
-      run: make distcheck
+    - name: make 
+      run: make 
+    - name: make report
+      run: make report
+    - name: make autogen
+      run: make autogen
+    - name: make configure
+      run: make configure
+    - name: make all
+      run: make all
+    - name: make initialize
+      run: make initialize
+    - name: make initialize
+      run: make initialize
