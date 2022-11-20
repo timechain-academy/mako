@@ -93,6 +93,7 @@ submodules:
 	git submodule foreach 'git fetch origin; git checkout $$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx'
 .PHONY: xcode
 xcode: submodules initialize
+	@pushd xcode/ish &&  xcodebuild -scheme iSH && popd
 .PHONY: initialize
 initialize:
 	@pushd xcode && ./initialize && popd
