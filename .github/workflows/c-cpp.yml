@@ -25,5 +25,5 @@ jobs:
       run: make autogen
     - name: make configure
       run: make configure
-    - name: make -f Makefile all-am
-      run: make -f Makefile all-am
+    #- name: make -f Makefile all-am
+    #  run: make -f Makefile all-am

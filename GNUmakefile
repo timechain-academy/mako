@@ -78,7 +78,7 @@ configure:
 	./configure
 
 .PHONY: mako makod
-mako:makod
+mako: autogen configure makod
 makod:
 	$(MAKE) -f Makefile all-am
 
