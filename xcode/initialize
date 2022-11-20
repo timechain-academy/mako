@@ -1,67 +1,4 @@
 #!/usr/bin/env bash
-
-alpine_install(){
-echo "getting alpine-minirootfs archive"
-wget -b \
-https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz \
->> initialize.log
-
-wget -b \
-https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz.sha256 \
->> initialize.log
-
-wget -b \
-https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz.asc \
->> initialize.log
-
-
-SHA256_PACKAGE=$(shasum -a 256 alpine-minirootfs-3.16.3-x86.tar.gz)
-echo "SHASUM_PACKAGE" >> initialize.log
-echo $SHA256_PACKAGE >> initialize.log
-SHASUM_VERIFY=$(cat alpine-minirootfs-3.16.3-x86.tar.gz.sha256)
-echo "SHASUM_VERIFY" >> initialize.log
-echo $SHASUM_VERIFY >> initialize.log
-wget -b https://alpinelinux.org/keys/ncopa.asc >> initialize.log
-gpg --import --quiet ncopa.asc >> initialize.log
-gpg --verify --quiet alpine-minirootfs-3.16.3-x86.tar.gz.asc >> initialize.log
-
-echo "iSH initialization"
-if [ hash brew 2>/dev/null ]; then
-echo "install brew"
-else
-brew install -q \
-autoconf \
-automake \
-libtool \
-pkg-config \
-m4 \
-sqlite3 \
-llvm \
-pkg-config \
-libarchive \
-meson \
-ninja \
-cmake \
-libarchive >> initialize.log
-
-	if [ hash cmake 2>/dev/null ]; then
-		brew install homebrew/cask/cmake
-	fi
-	
-	if [ hash meson 2>/dev/null ]; then
-		brew link -q --overwrite meson
-	fi
-
-brew link -q --overwrite libarchive
-export LDFLAGS="-L/usr/local/opt/libarchive/lib"
-export CPPFLAGS="-I/usr/local/opt/libarchive/include"
-export PKG_CONFIG_PATH="/usr/local/opt/libarchive/lib/pkgconfig"
-
-fi
-#pushd ish && meson build 2>/dev/null && mkdir -p build && pushd build && ninja  2>/dev/null && popd popd
-}
-alpine_install
-
 #ENV VARS
 OS=$(uname)
 OS_VERSION=$(uname -r)
@@ -207,3 +144,65 @@ elif [[ "$OSTYPE" == "freebsd"* ]]; then
 else
     echo TODO add support for $OSTYPE
 fi
+
+alpine_install(){
+echo "getting alpine-minirootfs archive"
+wget -b \
+https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz \
+>> initialize.log
+
+wget -b \
+https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz.sha256 \
+>> initialize.log
+
+wget -b \
+https://dl-cdn.alpinelinux.org/alpine/v3.16/releases/x86/alpine-minirootfs-3.16.3-x86.tar.gz.asc \
+>> initialize.log
+
+
+SHA256_PACKAGE=$(shasum -a 256 alpine-minirootfs-3.16.3-x86.tar.gz)
+echo "SHASUM_PACKAGE" >> initialize.log
+echo $SHA256_PACKAGE >> initialize.log
+SHASUM_VERIFY=$(cat alpine-minirootfs-3.16.3-x86.tar.gz.sha256)
+echo "SHASUM_VERIFY" >> initialize.log
+echo $SHASUM_VERIFY >> initialize.log
+wget -b https://alpinelinux.org/keys/ncopa.asc >> initialize.log
+gpg --import --quiet ncopa.asc >> initialize.log
+gpg --verify --quiet alpine-minirootfs-3.16.3-x86.tar.gz.asc >> initialize.log
+
+echo "iSH initialization"
+if [ hash brew 2>/dev/null ]; then
+echo "install brew"
+else
+brew install -q \
+autoconf \
+automake \
+libtool \
+pkg-config \
+m4 \
+sqlite3 \
+llvm \
+pkg-config \
+libarchive \
+meson \
+ninja \
+cmake \
+libarchive >> initialize.log
+
+	if [ hash cmake 2>/dev/null ]; then
+		brew install homebrew/cask/cmake
+	fi
+
+	if [ hash meson 2>/dev/null ]; then
+		brew link -q --overwrite meson
+	fi
+
+brew link -q --overwrite libarchive
+export LDFLAGS="-L/usr/local/opt/libarchive/lib"
+export CPPFLAGS="-I/usr/local/opt/libarchive/include"
+export PKG_CONFIG_PATH="/usr/local/opt/libarchive/lib/pkgconfig"
+
+fi
+#pushd ish && meson build 2>/dev/null && mkdir -p build && pushd build && ninja  2>/dev/null && popd popd
+}
+alpine_install
