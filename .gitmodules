@@ -8,4 +8,4 @@
 [submodule "deps/lcdb"]
 	path = deps/lcdb
 	url = git@github.com:timechain-academy/lcdb.git
-	branch = f5e24aea3aa1e4afdf5ff461e292e22f3ac9f2a4
+	branch = 8f0eb176024e7aaa9968e9dc2448f4cc86eeee9a
