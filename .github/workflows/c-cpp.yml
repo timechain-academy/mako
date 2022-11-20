@@ -19,11 +19,15 @@ jobs:
       run: make report
     - name: make submodules
       run: make submodules
-    - name: make initialize
-      run: make initialize
+    - name: install brew && make initialize
+      run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && make initialize
     - name: make autogen
       run: make autogen
     - name: make configure
       run: make configure
+    - name: make mako
+      run: make mako
+    - name: make clean
+      run: make clean
     - name: make dist
       run: make dist

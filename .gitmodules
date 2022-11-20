@@ -1,7 +1,7 @@
 [submodule "xcode/ish"]
 	path = xcode/ish
-	url = git@github.com:timechain-academy/ish.git
+	url = https://github.com/timechain-academy/ish.git
 	branch = 66adb0fd3af8c47ac062a2be9dedd1aaf76ddb6d
 [submodule "xcode/xcode-cross"]
 	path = xcode/xcode-cross
-	url = git@github.com:timechain-academy/xcode-cross.git
+	url = https://github.com:/timechain-academy/xcode-cross.git
