@@ -41,11 +41,18 @@ ninja \
 cmake \
 libarchive >> initialize.log
 
-brew install homebrew/cask/cmake
+	if [ hash cmake 2>/dev/null ]; then
+		brew install homebrew/cask/cmake
+	fi
+	
+	if [ hash meson 2>/dev/null ]; then
+		brew link -q --overwrite meson
+	fi
 
-brew link -q --overwrite libarchive >> initialize.log
-brew link -q --overwrite meson      >> initialize.log
+brew link -q --overwrite libarchive
+export LDFLAGS="-L/usr/local/opt/libarchive/lib"
+export CPPFLAGS="-I/usr/local/opt/libarchive/include"
+export PKG_CONFIG_PATH="/usr/local/opt/libarchive/lib/pkgconfig"
 
 fi
-
-pushd ish && meson build 2>/dev/null && mkdir -p build && pushd build && ninja  2>/dev/null && popd popd
+#pushd ish && meson build 2>/dev/null && mkdir -p build && pushd build && ninja  2>/dev/null && popd popd
