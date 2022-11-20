@@ -5,3 +5,5 @@
 [submodule "xcode/xcode-cross"]
 	path = xcode/xcode-cross
 	url = git@github.com:timechain-academy/xcode-cross.git
+[submodule "xcode/ish/"]
+	branch = f0ffe63920e693b20551196e124a27b9e7eecaf2
