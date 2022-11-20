@@ -1,6 +1,9 @@
 [submodule "xcode/ish"]
 	path = xcode/ish
 	url = git@github.com:timechain-academy/ish.git
+	branch = 1668910901/dfd598f3/f0ffe639-APP-ENTITLEMENTS
 [submodule "xcode/xcode-cross"]
 	path = xcode/xcode-cross
 	url = git@github.com:timechain-academy/xcode-cross.git
+[submodule "xcode/ish/"]
+	branch = f0ffe63920e693b20551196e124a27b9e7eecaf2
