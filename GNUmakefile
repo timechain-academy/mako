@@ -83,7 +83,7 @@ makod:
 
 .PHONY: dist distdir-am
 dist: distdir-am
-distdir-am: package
+distdir-am:
 	$(MAKE) -f Makefile $@
 	@git status -s
 
