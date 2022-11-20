@@ -56,6 +56,7 @@ export MESON
 ##		mako		all-am -f Makefile
 ##	:
 ##	dist			distdir-am -f Makefile
+##	distcheck		pushd mako-0.0.0 && make $@ && popd
 ##	:
 ##	clean
 ##		clean-all
@@ -87,6 +88,9 @@ distdir-am:
 	$(MAKE) -f Makefile $@
 	@pushd mako-0.0.0/ && ./autogen.sh && ./configure && make && popd
 	@git status -s
+
+distcheck:
+	@pushd mako-0.0.0/ && make $@ && popd
 
 .PHONY: submodules
 submodules:
