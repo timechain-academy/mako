@@ -53,7 +53,7 @@ export GIT_REPO_PATH
 
 
 -: help
-help:
+help:## 	terse help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?##/ {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 autogen:## 	./autogen.sh
@@ -61,7 +61,7 @@ autogen:## 	./autogen.sh
 configure:## 	./configure
 	@./configure
 
-report:
+report:## 	echo MAKE VARIABLES
 	@echo ''
 	@echo ' TIME=${TIME}	'
 	@echo ' THIS_DIR=${THIS_DIR}	'
@@ -78,10 +78,10 @@ report:
 	@echo ' GIT_REPO_PATH=${GIT_REPO_PATH}	'
 
 .PHONY: submodules
-submodules:
+submodules:##  	git submodule update --init --recursive
 	git submodule update --init --recursive
 	git submodule foreach 'git fetch origin; git checkout $$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx'
 
-#-include Makefile
+-include Makefile
 # vim: set noexpandtab:
 # vim: set setfiletype make
