@@ -2,7 +2,7 @@ dnl configure.ac - autoconf script for mako
 dnl Copyright (c) 2021-2022, Christopher Jeffrey (MIT License).
 dnl https://github.com/chjj/mako
 
-m4_define(MAKO_PKG_VERSION, 0.0.0)
+m4_define(MAKO_PKG_VERSION, 14.2.0)
 m4_define(MAKO_ABI_VERSION, 0:0:0)
 
 #
