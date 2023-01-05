@@ -1,5 +1,0 @@
-# Changelog
-
-## HEAD
-
-Placeholder.

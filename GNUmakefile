@@ -44,75 +44,25 @@ export GIT_REPO_NAME
 GIT_REPO_PATH							:= $(HOME)/$(GIT_REPO_NAME)
 export GIT_REPO_PATH
 
-#CHECK DEPENDS
-MESON									:= $(shell which meson)
-export MESON
 # default output
-##make		command		description
+##make	:	command			description
 ##	:
-##	all			autogen configure mako
-##		autogen		./autogen.sh
-##		configure	./configure
-##		mako		all-am -f Makefile
-##	:
-##	dist			distdir-am -f Makefile
-##	distcheck		pushd mako-0.0.0 && make $@ && popd
-##	:
-##	clean
-##		clean-all
-##	:
-##		report
-##	:
-##	xcode			submodules initialize
-##		submodules	git submodule update --init --recursive
-##		initialize	pushd xcode && ./initialize
+##	:	help
+##	:	report
+##	:	submodules:	git submodule update --init --recursive
 
-help:
-	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^//'
-.PHONY:all
-all: autogen configure mako
-autogen:
-	./autogen.sh
-.PHONY: configure
-configure:
-	./configure
 
-.PHONY: mako makod
-mako: autogen configure makod
-makod:
-	$(MAKE) -f Makefile all-am
+-:
+	@$(MAKE) -f Makefile
+	@$(MAKE) help
 
-.PHONY: dist distdir-am
-dist: distdir-am
-distdir-am:
-	$(MAKE) -f Makefile $@
-	@pushd mako-0.0.0/ && ./autogen.sh && ./configure && make && popd
-	@git status -s
+help:## 	terse help
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?##/ {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-distcheck:
-	@pushd mako-0.0.0/ && make $@ && popd
+autogen:## 	./autogen.sh
+	@./autogen.sh
 
-.PHONY: submodules
-submodules:
-	git submodule update --init --recursive
-	git submodule foreach 'git fetch origin; git checkout $$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx'
-.PHONY: xcode
-xcode: submodules initialize
-	@pushd xcode/ish &&  xcodebuild -scheme iSH && popd
-.PHONY: initialize
-initialize:
-	@pushd xcode && ./initialize && popd
-
-.PHONY: clean
-clean:
-	@make -f Makefile clean-am
-.PHONY: clean-all
-clean-all:
-	@make -f Makefile clean-am
-	@rm ./configure
-	@rm Makefile
-	@rm -rf mako-*
-report:
+report:## 	echo MAKE VARIABLES
 	@echo ''
 	@echo ' TIME=${TIME}	'
 	@echo ' THIS_DIR=${THIS_DIR}	'
@@ -127,12 +77,12 @@ report:
 	@echo ' GIT_REPO_ORIGIN=${GIT_REPO_ORIGIN}	'
 	@echo ' GIT_REPO_NAME=${GIT_REPO_NAME}	'
 	@echo ' GIT_REPO_PATH=${GIT_REPO_PATH}	'
-	@echo ''
-	@echo ' XCODE DEPENDS'
-	@echo ''
-	@echo ' MESON=${MESON}	'
-	@echo ''
 
-#-include Makefile
+.PHONY: submodules
+submodules:##  	git submodule update --init --recursive
+	git submodule update --init --recursive
+	git submodule foreach 'git fetch origin; git checkout $$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx'
+
+-include Makefile
 # vim: set noexpandtab:
 # vim: set setfiletype make
