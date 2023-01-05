@@ -1,3 +1,5 @@
 [submodule "xcode/ish"]
 	path = xcode/ish
 	url = git@github.com:timechain-academy/ish.git
+	branch = 602971b3391d615d744d23ba62c2c8481c20b6a4
+	ignore = dirty
