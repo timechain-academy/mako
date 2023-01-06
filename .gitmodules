@@ -3,3 +3,8 @@
 	url = git@github.com:timechain-academy/ish.git
 	branch = 93d4639c50c76b11e8047bfc4bf91816a97f389e
 	ignore = dirty
+[submodule "xcode/roots"]
+	path = xcode/roots
+	url = https://github.com/timechain-academy/roots.git
+	branch = master
+	ignore = dirty
