@@ -5,6 +5,6 @@
 	ignore = dirty
 [submodule "xcode/roots"]
 	path = xcode/roots
-	url = https://github.com/timechain-academy/roots.git
-	branch = master
+	url = git@github.com:timechain-academy/roots.git
+	branch = 72058f6e8d70089ae6bdcfbe6257f8d20525bbe9
 	ignore = dirty
